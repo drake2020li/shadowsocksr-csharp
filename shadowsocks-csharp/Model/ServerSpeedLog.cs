@@ -389,6 +389,7 @@ namespace Shadowsocks.Model
         {
             lock (this)
             {
+                Shadowsocks.Program._controller.GetCurrentConfiguration().errorCount += 2;
                 errorConnectTimes += 1;
                 errorContinurousTimes += 2;
                 errList.AddLast(new ErrorLog(1));
@@ -399,6 +400,7 @@ namespace Shadowsocks.Model
         {
             lock (this)
             {
+                Shadowsocks.Program._controller.GetCurrentConfiguration().errorCount += 1;
                 errorTimeoutTimes += 1;
                 errorContinurousTimes += 1;
                 errList.AddLast(new ErrorLog(2));
@@ -409,6 +411,7 @@ namespace Shadowsocks.Model
         {
             lock (this)
             {
+                Shadowsocks.Program._controller.GetCurrentConfiguration().errorCount += 10;
                 errorDecodeTimes += 1;
                 errorContinurousTimes += 10;
                 errList.AddLast(new ErrorLog(3));
@@ -419,6 +422,7 @@ namespace Shadowsocks.Model
         {
             lock (this)
             {
+                Shadowsocks.Program._controller.GetCurrentConfiguration().errorCount += 1;
                 errorEmptyTimes += 1;
                 errorContinurousTimes += 1;
                 errList.AddLast(new ErrorLog(0));
