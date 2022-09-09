@@ -103,6 +103,8 @@ namespace Shadowsocks.Model
     [Serializable]
     public class Configuration
     {
+        public int errorCount;
+        public int errorThreshold = 10;
         public List<Server> configs;
         public int index;
         public bool random;
@@ -169,7 +171,13 @@ namespace Shadowsocks.Model
 
         public bool KeepCurrentServer(int localPort, string targetAddr, string id)
         {
-            if (sameHostForSameTarget && targetAddr != null)
+            if (errorThreshold)
+            {
+                if(errorCount < errorThreshold) return true;
+                errorCount = 0;
+                return false;
+            }
+            else if (sameHostForSameTarget && targetAddr != null)
             {
                 lock (serverStrategyMap)
                 {
@@ -414,6 +422,8 @@ namespace Shadowsocks.Model
 
         public void CopyFrom(Configuration config)
         {
+            errorCount = config.errorCount;
+            errorThreshold = config.errorThreshold;
             configs = config.configs;
             index = config.index;
             random = config.random;
