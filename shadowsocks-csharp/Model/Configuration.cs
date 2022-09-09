@@ -171,12 +171,7 @@ namespace Shadowsocks.Model
 
         public bool KeepCurrentServer(int localPort, string targetAddr, string id)
         {
-            if (errorThreshold > 0)
-            {
-                if(errorCount < errorThreshold) return true;
-                errorCount = 0;
-                return false;
-            }
+            if (errorThreshold > 0) return errorCount < errorThreshold;
             else if (sameHostForSameTarget && targetAddr != null)
             {
                 lock (serverStrategyMap)
@@ -212,6 +207,11 @@ namespace Shadowsocks.Model
         {
             lock (serverStrategyMap)
             {
+                if (errorThreshold > 0)
+                {
+                    if(errorCount < errorThreshold) return configs[index];
+                    errorCount = 0;
+                }
                 if (!serverStrategyMap.ContainsKey(localPort))
                     serverStrategyMap[localPort] = new ServerSelectStrategy();
                 ServerSelectStrategy serverStrategy = serverStrategyMap[localPort];
@@ -244,6 +244,7 @@ namespace Shadowsocks.Model
                         index = serverStrategy.Select(configs, this.index, balanceAlgorithm, filter, true);
                     }
                     if (index == -1) return GetErrorServer();
+                    if (errorThreshold > 0) this.index = index;
                     return configs[index];
                 }
                 else if (usingRandom && cfgRandom)
@@ -271,6 +272,7 @@ namespace Shadowsocks.Model
                         visit.visitTime = DateTime.Now;
                         uricache.Set(targetAddr, visit);
                     }
+                    if (errorThreshold > 0) this.index = index;
                     return configs[index];
                 }
                 else
@@ -301,6 +303,7 @@ namespace Shadowsocks.Model
                             visit.visitTime = DateTime.Now;
                             uricache.Set(targetAddr, visit);
                         }
+                        if (errorThreshold > 0) index = selIndex;
                         return configs[selIndex];
                     }
                     else
