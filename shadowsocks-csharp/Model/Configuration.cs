@@ -171,7 +171,7 @@ namespace Shadowsocks.Model
 
         public bool KeepCurrentServer(int localPort, string targetAddr, string id)
         {
-            if (errorThreshold)
+            if (errorThreshold > 0)
             {
                 if(errorCount < errorThreshold) return true;
                 errorCount = 0;
