@@ -179,7 +179,7 @@
             this.TotalConnect.MinimumWidth = 2;
             this.TotalConnect.Name = "TotalConnect";
             this.TotalConnect.ReadOnly = true;
-            this.TotalConnect.Visible = false;
+            this.TotalConnect.Visible = true;
             this.TotalConnect.Width = 48;
             // 
             // Connecting
@@ -279,7 +279,7 @@
             this.ErrorPercent.Name = "ErrorPercent";
             this.ErrorPercent.ReadOnly = true;
             this.ErrorPercent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ErrorPercent.Visible = false;
+            this.ErrorPercent.Visible = true;
             this.ErrorPercent.Width = 48;
             // 
             // ConnectError
@@ -322,7 +322,7 @@
             this.Continuous.HeaderText = "Continuous";
             this.Continuous.Name = "Continuous";
             this.Continuous.ReadOnly = true;
-            this.Continuous.Visible = false;
+            this.Continuous.Visible = true;
             this.Continuous.Width = 28;
             // 
             // ServerLogForm
