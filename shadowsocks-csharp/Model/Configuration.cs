@@ -205,7 +205,7 @@ namespace Shadowsocks.Model
         {
             lock (serverStrategyMap)
             {
-                if (errorThreshold > 0 && configs[index].ServerSpeedLog().errorContinurousTimes < errorThreshold)
+                if (errorThreshold > 0 && configs[index].ServerSpeedLog().ErrorContinurousTimes < errorThreshold)
                     return configs[index];
                 if (!serverStrategyMap.ContainsKey(localPort))
                     serverStrategyMap[localPort] = new ServerSelectStrategy();
@@ -420,7 +420,6 @@ namespace Shadowsocks.Model
 
         public void CopyFrom(Configuration config)
         {
-            errorCount = config.errorCount;
             errorThreshold = config.errorThreshold;
             configs = config.configs;
             index = config.index;
