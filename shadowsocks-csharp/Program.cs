@@ -17,7 +17,7 @@ namespace Shadowsocks
 {
     static class Program
     {
-        public static ShadowsocksController _controller;
+        static ShadowsocksController _controller;
 #if !_CONSOLE
         static MenuViewController _viewController;
 #endif
